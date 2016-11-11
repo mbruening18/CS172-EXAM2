@@ -104,8 +104,8 @@ Citizen* City::getCitizenAtIndex(int index)
 //Adds a citizen to this city
 void City::addCitizen(Citizen* citizen)
 {
-    Citizen* citizenToAdd = new Citizen(citizen);
-    NEWCITY.push_back(citizenToAdd);
+    Citizen* AddCitizen = new Citizen(citizen);
+    NEWCITY.push_back(AddCitizen);
     NumberOfCitizens++;
 }
 
