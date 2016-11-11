@@ -59,9 +59,7 @@ City::City(string cityName)
             NEWCITY.push_back(citizenToAdd);
             NumberOfCitizens++;
         }
-        NEWCITY.pop_back();
-        NumberOfCitizens--;
-        
+    
     }
     fileIO.close();
 }
