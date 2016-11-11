@@ -59,21 +59,22 @@ City::City(string cityName)
             NEWCITY.push_back(citizenToAdd);
             NumberOfCitizens++;
         }
+        NEWCITY.pop_back();
+        NumberOfCitizens--;
+        
     }
     fileIO.close();
 }
 
-//This is the destructor for the city.  When
-//this city is destroyed, save the population of
-//the city to a file so that you can restore
-//it in the constructor the next time that
-//a city with this name is created.
+//This is the destructor for the city. keeps city from being destroyed. Saves to a file
 City::~City()
 {
-    string fileName = cityName + ".txt";
+    string fileName = NameOfCity + ".txt";
     fstream output(fileName, ios::out);
     if(output.fail())
+    {
         cout << "ERROR: File could not be opened" << endl;
+    }
     else
     {
         for(int i=0; i < NumberOfCitizens; i++)
@@ -90,12 +91,10 @@ string City::getCityName()
 {
     return NameOfCity;
 }
-
 //Returns the number of citizens in this city
-int populationSize()
+int City:: populationSize()
 {
-    int size=0;
-    return NEWCITY.at(size);
+    return NEWCITY.size();
 }
 
 //Returns the citizen at the given index.
@@ -104,9 +103,7 @@ Citizen* City::getCitizenAtIndex(int index)
     return (NEWCITY.at(index));
 }
 
-//Adds a citizen to this city. You will need to
-//make a copy of this citizen so that you make
-//sure to keep it around for the life of the city.
+//Adds a citizen to this city
 void City::addCitizen(Citizen* citizen)
 {
     Citizen* citizenToAdd = new Citizen(citizen);
@@ -117,15 +114,15 @@ void City::addCitizen(Citizen* citizen)
 //Returns the citizen with the given id.
 Citizen* City::getCitizenWithId(int id)
 {
-    bool create = false;
-    while(create == false)
+    bool given = false;
+    while(given == false)
     {
         int IDtest;
         for(int i=0; i < NumberOfCitizens ; i++)
         {
             if(IDtest == NEWCITY.at(i)->getId())
             {
-                create = true;
+                given = true;
                 return (NEWCITY.at(i));
                 break;
             }
@@ -134,10 +131,7 @@ Citizen* City::getCitizenWithId(int id)
     return (NEWCITY.at(0));
 }
 
-//Returns a vector of citizens that all have
-//the given color as their favorite color.
-//For example, if color is “Blue” this will return all citizens
-//for this city who’s favorite color is Blue.
+//Returns a vector, given their favorite color
 vector<Citizen*> City::getCitizensForFavoriteColor(string color)
 {
     vector<Citizen*> SameFavColor;
